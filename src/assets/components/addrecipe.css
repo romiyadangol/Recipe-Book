@@ -2,7 +2,7 @@
     max-width: 800px;
     margin: 0 auto;
     border: none;
-    width: 500px;
+    width: 700px;
 }
 
 .add-form-content {
@@ -65,8 +65,7 @@ button:hover {
     border: 2px solid #ccc;
     border-radius: 5px;
     overflow: hidden;
-    margin-top: 5px;
-    
+    margin-top: 5px;  
 }
 
 .placeholder {
@@ -80,7 +79,9 @@ button:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-
+.ingredients-btn{
+    margin-top: 10px;
+}
 .recipe-image {
     width: 100%;
     height: 100%;
@@ -96,6 +97,7 @@ button:hover {
     opacity: 0;
     cursor: pointer;
 }
+
 .time-calorie{
     display: grid;
     grid-template-columns: 1fr 1fr;

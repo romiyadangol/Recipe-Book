@@ -3,18 +3,24 @@ import '../assets/components/addrecipe.css';
 
 export default function AddRecipe() {
     const [imagePreview, setImagePreview] = useState('');
+    const [recipeName, setRecipeName] = useState('');
+    const [ingredients, setIngredients] = useState([]);
     
     const handleImageChange = (event) => {
         const file = event.target.files[0];
-        const reader = new FileReader();
-        
-        reader.onload = () => {
-            setImagePreview(reader.result);
-        };
-        
         if (file) {
-            reader.readAsDataURL(file);
+            const imageUrl = URL.createObjectURL(file);
+            setImagePreview(imageUrl);
         }
+    };
+    const handleIngredientChange = (index, e) => {
+        const values = [...ingredients];
+        values[index] = e.target.value;
+        setIngredients(values);
+    }
+    const handleAddIngredient = (event) => {
+       event.preventDefault();
+         setIngredients([...ingredients, '']);
     };
 
     return (
@@ -24,7 +30,12 @@ export default function AddRecipe() {
                 <form className='form'>
                     <div className="recipe-name">
                         <label>Recipe Name</label>
-                        <input type="text" className='recipeName'/>
+                        <input 
+                            type="text" 
+                            className='recipeName'
+                            value={recipeName}
+                            onChange={(e) => setRecipeName(e.target.value)}
+                        />
                     </div>
                     <div className="image">
                         <label>Image</label>
@@ -36,14 +47,28 @@ export default function AddRecipe() {
                                     Click to upload image
                                 </div>
                             )}
-                            <input type="file" className="image" id="fileInput" onChange={handleImageChange} />
+                            <input 
+                                type="file" 
+                                className="image" 
+                                id="fileInput" 
+                                onChange={handleImageChange} 
+                            />
                         </div>
                     </div>
                     <div className="ingredients">
-                        <label>Ingredients</label>
-                        <input type='text' className='ingredients'/>
-                        <button>+ Add Ingredient</button>
+                        <label>Ingredients</label><br />
+                        {ingredients.map((ingredients, index)=>(
+                            <input 
+                            key={index}
+                            type='text' 
+                            className='ingredient'
+                            value={ingredients}
+                            onChange={(e) => handleIngredientChange(index,e)}
+                            />
+                        ))}
+                        <button className="ingredients-btn" onClick={handleAddIngredient}>+ Add Ingredient</button>
                     </div>
+                    
                     <div className="instructions">
                         <label>Instructions</label>
                         <textarea type='text' className='instructions'/>
