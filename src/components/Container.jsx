@@ -1,34 +1,37 @@
-import time from '../assets/time.svg';
-import calorie from '../assets/calorie.svg';
-import ingredient from '../assets/ingridient.svg';
+import timeIcon from '../assets/time.svg';
+import calorieIcon from '../assets/calorie.svg';
+import ingredientIcon from '../assets/ingridient.svg';
 import '../assets/components/container.css';
 
-export default function Container() {
-  return (
-    <div className="container">
-      <div className="image">
-        <img className='bg' src="https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="Jellof Rice" />
-      </div>
-      <div className="card-info">
-        <h1>Pancakes</h1>
-        <div className="info">
-          <div className="time">
-            <img src={time} alt="time icon" />
-            <span>50 mins</span>
-          </div>
-          <div className="calories">
-            <img src={calorie} alt="calorie icon" />
-            <span>285 Calories</span>
-          </div>
-          <div className="ingredients">
-            <img src={ingredient} alt="ingredient icon" />
-            <span>2 cups long-grain parboiled rice, 1/4 cup vegetable oil, 1 large onion, finely chopped, 2-3 cloves garlic, minced and 6 more</span>
-          </div>
+export default function Container({ recipe }) {
+    const imageUrl = recipe ?recipe.imagePreview : '';
+    const recipeName = recipe ? recipe.recipeName : '';
+    const time = recipe ? recipe.time : '';
+    const calories = recipe ? recipe.calories : '';
+    const ingredients = recipe ? recipe.ingredients : '';
+
+    return (
+        <div className="container">
+            <div className="image">
+                <img className='bg' src={imageUrl} alt={recipeName} />
+            </div>
+            <div className="card-info">
+                <h1>{recipeName}</h1>
+                <div className="info">
+                    <div className="time">
+                        <img src={timeIcon} alt="time icon" />
+                        <span>{time} min</span>
+                    </div>
+                    <div className="calories">
+                        <img src={calorieIcon} alt="calorie icon" />
+                        <span>{calories} kcal</span>
+                    </div>
+                    <div className="ingredients">
+                        <img src={ingredientIcon} alt="ingredient icon" />
+                        <span>{ingredients}</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div className="author">
-          <span>by Romiya</span>
-        </div>
-      </div>
-    </div>
-  );
+    );
 }

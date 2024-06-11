@@ -1,11 +1,16 @@
 import { useState } from 'react';
 import '../assets/components/addrecipe.css';
 
-export default function AddRecipe() {
+export default function AddRecipe({ addRecipe }) {
+
+    
     const [imagePreview, setImagePreview] = useState('');
     const [recipeName, setRecipeName] = useState('');
     const [ingredients, setIngredients] = useState([]);
-    
+    const [instructions, setInstructions] = useState('');
+    const [time, setTime] = useState('');
+    const [calories, setCalories] = useState('');
+
     const handleImageChange = (event) => {
         const file = event.target.files[0];
         if (file) {
@@ -13,21 +18,44 @@ export default function AddRecipe() {
             setImagePreview(imageUrl);
         }
     };
+
     const handleIngredientChange = (index, e) => {
         const values = [...ingredients];
         values[index] = e.target.value;
         setIngredients(values);
-    }
+    };
+
     const handleAddIngredient = (event) => {
-       event.preventDefault();
-         setIngredients([...ingredients, '']);
+        event.preventDefault();
+        setIngredients([...ingredients, '']);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const recipe = {
+            recipeName,
+            ingredients,
+            instructions,
+            time,
+            calories,
+            imagePreview
+        };
+        alert('Recipe added successfully');
+        console.log(recipe);
+        addRecipe(recipe);
+        setRecipeName('');
+        setIngredients([]);
+        setInstructions('');
+        setTime('');
+        setCalories('');
+        setImagePreview('');
     };
 
     return (
         <div className="add-form">
             <div className="add-form-content">
                 <h4>Fill in the details for your recipe</h4>
-                <form className='form'>
+                <form className='form' onSubmit={handleSubmit}>
                     <div className="recipe-name">
                         <label>Recipe Name</label>
                         <input 
@@ -57,13 +85,13 @@ export default function AddRecipe() {
                     </div>
                     <div className="ingredients">
                         <label>Ingredients</label><br />
-                        {ingredients.map((ingredients, index)=>(
+                        {ingredients.map((ingredient, index) => (
                             <input 
-                            key={index}
-                            type='text' 
-                            className='ingredient'
-                            value={ingredients}
-                            onChange={(e) => handleIngredientChange(index,e)}
+                                key={index}
+                                type='text' 
+                                className='ingredient'
+                                value={ingredient}
+                                onChange={(e) => handleIngredientChange(index, e)}
                             />
                         ))}
                         <button className="ingredients-btn" onClick={handleAddIngredient}>+ Add Ingredient</button>
@@ -71,20 +99,36 @@ export default function AddRecipe() {
                     
                     <div className="instructions">
                         <label>Instructions</label>
-                        <textarea type='text' className='instructions'/>
+                        <textarea 
+                            type='text' 
+                            className='instructions'
+                            value={instructions}
+                            onChange={(e) => setInstructions(e.target.value)}
+                        />
                     </div>
                     <div className="time-calorie">
                         <div className="time">
                             <label>Time (in minutes)</label>
-                            <input type='number' className='time'/>
+                            <input 
+                                type='number' 
+                                className='time'
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                            />
                         </div>
                         <div className="calories">
                             <label>Calories</label>
-                            <input type='number' className='calories'/>
+                            <input 
+                                type='number' 
+                                className='calories'
+                                value={calories}
+                                onChange={(e) => setCalories(e.target.value)}
+                            />
                         </div>
                     </div>
-                    <div className="addRecipe">
-                            <button>Add Recipe</button>
+                    <div className="add-Recipe">
+                        <button type='submit'>Add Recipe</button>
+                    
                     </div>
                 </form>
             </div>
