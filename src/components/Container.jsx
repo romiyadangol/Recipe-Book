@@ -2,6 +2,7 @@ import timeIcon from '../assets/time.svg';
 import calorieIcon from '../assets/calorie.svg';
 import ingredientIcon from '../assets/ingridient.svg';
 import '../assets/components/container.css';
+import { Link } from 'react-router-dom';
 
 export default function Container({ recipe }) {
     if (!recipe) {
@@ -33,6 +34,9 @@ export default function Container({ recipe }) {
                     <div className="ingredients">
                         <img src={ingredientIcon} alt="ingredient icon" />
                         <span>{ingredients}</span>
+                    </div>
+                    <div className="read-more">
+                    <Link className='read' to={`/recipe/${recipeName}?image=${encodeURIComponent(imageUrl)}&time=${time}&calories=${calories}&ingredients=${encodeURIComponent(ingredients)}&instructions=${encodeURIComponent(recipe.instructions)}`}>Read More</Link>
                     </div>
                 </div>
             </div>
