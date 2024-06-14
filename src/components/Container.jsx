@@ -4,11 +4,15 @@ import ingredientIcon from '../assets/ingridient.svg';
 import '../assets/components/container.css';
 
 export default function Container({ recipe }) {
-    const imageUrl = recipe ?recipe.imagePreview : '';
-    const recipeName = recipe ? recipe.recipeName : '';
-    const time = recipe ? recipe.time : '';
-    const calories = recipe ? recipe.calories : '';
-    const ingredients = recipe ? recipe.ingredients : '';
+    if (!recipe) {
+        return null;  // Safeguard if no recipe is passed
+    }
+
+    const imageUrl = recipe.imagePreview;
+    const recipeName = recipe.recipeName;
+    const time = recipe.time;
+    const calories = recipe.calories;
+    const ingredients = recipe.ingredients.join(', ');  // Ensure ingredients are displayed as a string
 
     return (
         <div className="container">

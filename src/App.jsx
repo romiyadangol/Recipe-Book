@@ -1,12 +1,13 @@
 import Header from "./components/Header";
 import './assets/components/index.css';
-import Button from "./components/Button";
+import RecipeApp from "./components/RecipeApp";
 export default function App() {
 
   return (
     <>
     <Header/>
-    <Button/>
+    <RecipeApp/>
+    {/* <Button/> */}
     </>
   )
 }
